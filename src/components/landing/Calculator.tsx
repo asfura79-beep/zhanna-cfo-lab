@@ -46,7 +46,7 @@ export function Calculator() {
                   min={300_000}
                   max={50_000_000}
                   step={100_000}
-                  onValueChange={([v]) => setRevenue(v)}
+                  onValueChange={(v) => setRevenue(v[0] ?? revenue)}
                   aria-label="Среднемесячная выручка"
                 />
                 <div className="mt-2 flex justify-between text-xs text-muted-foreground">
@@ -68,7 +68,7 @@ export function Calculator() {
                   min={1}
                   max={60}
                   step={1}
-                  onValueChange={([v]) => setMargin(v)}
+                  onValueChange={(v) => setMargin(v[0] ?? margin)}
                   aria-label="Средняя рентабельность"
                 />
                 <div className="mt-2 flex justify-between text-xs text-muted-foreground">
