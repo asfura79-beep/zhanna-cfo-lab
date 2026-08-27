@@ -159,3 +159,22 @@
     color: var(--color-foreground);
   }
 }
+
+@utility glass-card {
+  background: color-mix(in oklab, var(--card) 72%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+@utility glass-bar {
+  background: color-mix(in oklab, var(--background) 70%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
+}
+
+@utility text-gradient-sapphire {
+  background: var(--gradient-sapphire);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
