@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import {
   Send,
-  Calculator as CalcIcon,
+  Stethoscope,
   ShieldCheck,
   FileCheck2,
   Receipt,
@@ -12,6 +12,7 @@ import {
   Workflow,
   LineChart,
   Gauge,
+  CalendarClock,
   Lock,
   Download,
   Menu,
@@ -21,7 +22,8 @@ import {
 import zhanna from "@/assets/zhanna.jpg.asset.json";
 import dashboardPreview from "@/assets/dashboard-preview.jpg";
 import { Reveal, SectionTitle, TELEGRAM_URL } from "@/components/landing/shared";
-import { Calculator } from "@/components/landing/Calculator";
+import { Diagnostic } from "@/components/landing/Diagnostic";
+import { Approach } from "@/components/landing/Approach";
 import { BeforeAfter } from "@/components/landing/BeforeAfter";
 
 export const Route = createFileRoute("/")({
@@ -150,7 +152,7 @@ function Hero() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-3 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur">
             <ShieldCheck className="h-3.5 w-3.5 text-emerald-brand" />
-            Независимый финансовый менеджер на аутсорсе
+            Финансовый менеджер с бухгалтерской экспертизой
           </span>
 
           <h1 className="mt-6 text-balance text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
@@ -171,14 +173,14 @@ function Hero() {
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-[image:var(--gradient-emerald)] px-6 py-4 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-float)] transition-transform duration-200 hover:scale-[1.02]"
             >
               <Send className="h-4 w-4" />
-              Оставить заявку в Telegram
+              Обсудить задачу в Telegram
             </a>
             <a
               href="#calculator"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card/70 px-6 py-4 text-sm font-semibold backdrop-blur transition-colors hover:bg-card"
             >
-              <CalcIcon className="h-4 w-4" />
-              Рассчитать цену ошибки
+              <Stethoscope className="h-4 w-4" />
+              Проверить финансовую систему
             </a>
           </div>
 
@@ -186,7 +188,7 @@ function Hero() {
             {[
               { k: "P&L", v: "Реальная прибыль" },
               { k: "ОДДС", v: "Контроль денег" },
-              { k: "BI", v: "Дашборды" },
+              { k: "BI", v: "Бизнес в цифрах" },
             ].map((s) => (
               <div key={s.k} className="glass-card rounded-2xl px-4 py-3">
                 <dt className="text-base font-bold">{s.k}</dt>
@@ -215,7 +217,7 @@ function Hero() {
           <div className="glass-card absolute -bottom-6 left-1/2 w-[88%] -translate-x-1/2 rounded-2xl px-5 py-4 text-center">
             <p className="text-sm font-semibold">Жанна Василевская</p>
             <p className="mt-0.5 text-xs text-muted-foreground">
-              Финансовый менеджер · бухгалтерия и управленческий учёт
+              Бухгалтер • финансовый менеджер
             </p>
           </div>
         </motion.div>
@@ -227,24 +229,25 @@ function Hero() {
 const SERVICES = [
   {
     icon: Scale,
-    title: "Бухгалтерия для стабильности",
+    title: "Бухгалтерия для спокойствия",
     accent: "sapphire",
     items: [
-      { icon: FileCheck2, text: "Сдача отчётности в срок и без доработок" },
-      { icon: Receipt, text: "Восстановление учёта и приведение данных в порядок" },
-      { icon: Workflow, text: "Корректная работа с первичкой" },
-      { icon: ShieldCheck, text: "Защита от штрафов и лишних вопросов" },
+      { icon: FileCheck2, text: "Учёт и отчётность без пропущенных сроков" },
+      { icon: Receipt, text: "Порядок в первичных документах" },
+      { icon: Scale, text: "Контроль налогов и обязательств" },
+      { icon: ShieldCheck, text: "Работа с требованиями и контролирующими органами" },
     ],
   },
   {
     icon: BarChart3,
-    title: "Управленка для роста",
+    title: "Финансы для управления",
     accent: "emerald",
     items: [
-      { icon: Gauge, text: "Оцифровка бизнеса: понятная модель показателей" },
-      { icon: LineChart, text: "P&L и Cash Flow, которым можно доверять" },
+      { icon: LineChart, text: "Реальная прибыль бизнеса" },
+      { icon: Gauge, text: "Движение и прогноз денег" },
+      { icon: CalendarClock, text: "Платёжный календарь" },
+      { icon: BarChart3, text: "Управленческий дашборд" },
       { icon: Workflow, text: "Автоматизация сбора данных" },
-      { icon: BarChart3, text: "Настройка дашбордов для руководителя" },
     ],
   },
 ] as const;
@@ -296,25 +299,19 @@ function Services() {
 
 const MISTAKES = [
   {
-    title: "Считать прибыль по остатку на счёте",
-    problem:
-      "Деньги на счетах есть, но часто это авансы от клиентов. Если ориентироваться только на баланс, можно уйти в кассовый разрыв.",
-    solution:
-      "Собираю ОДДС и внедряю платёжный календарь — вы заранее видите риски нехватки денег.",
+    title: "Деньги на счёте ≠ прибыль",
+    problem: "На счёте есть деньги, и собственник воспринимает их как свободные.",
+    solution: "P&L показывает реальную прибыль, ОДДС — куда уходят деньги.",
   },
   {
-    title: "Вытаскивать деньги из бизнеса вслепую",
-    problem:
-      "Собственник забирает деньги на личные нужды, не зная точной рентабельности, что вымывает оборотный капитал.",
-    solution:
-      "Считаю реальную чистую прибыль (P&L), определяю безопасный лимит для дивидендов и настраиваю систему фондов.",
+    title: "Деньги выводятся без понимания лимита",
+    problem: "Изъятие денег собственником может создавать дефицит оборотных средств.",
+    solution: "Определяем безопасную сумму вывода с учётом обязательств бизнеса.",
   },
   {
-    title: "Принимать решения по устаревшим ручным таблицам",
-    problem:
-      "Сбор данных из банков и экселек занимает недели, цифры теряют актуальность.",
-    solution:
-      "Автоматизирую сбор метрик и вывожу их на наглядный дашборд. Вы видите прозрачную аналитику в реальном времени.",
+    title: "Управление по вчерашним цифрам",
+    problem: "Решения принимаются на основании устаревших таблиц и данных.",
+    solution: "Автоматизируем сбор показателей и выводим ключевые цифры на дашборд.",
   },
 ];
 
@@ -401,14 +398,14 @@ function LeadMagnet() {
 
             <div>
               <span className="inline-flex rounded-full border border-border/70 bg-card/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                Шаблон
+                Бесплатный инструмент
               </span>
               <h2 className="mt-4 text-balance text-3xl font-bold tracking-tight">
-                Базовый шаблон отчёта о движении денежных средств
+                Проверьте, хватит ли бизнесу денег до конца месяца
               </h2>
               <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
-                Получите шаблон Cash Flow для самостоятельной оценки: увидите, куда уходят деньги и
-                где формируется риск кассового разрыва.
+                Получите базовый шаблон Cash Flow для самостоятельного контроля движения денег и
+                заранее замечайте возможный дефицит.
               </p>
               <a
                 href={TELEGRAM_URL}
@@ -417,9 +414,39 @@ function LeadMagnet() {
                 className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[image:var(--gradient-emerald)] px-6 py-4 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-transform duration-200 hover:scale-[1.02]"
               >
                 <Download className="h-4 w-4" />
-                Забрать шаблон в Telegram
+                Получить шаблон в Telegram
               </a>
             </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function FinalCta() {
+  return (
+    <section className="pb-20 sm:pb-28">
+      <div className="mx-auto max-w-4xl px-5">
+        <Reveal>
+          <div className="glass-card flex flex-col items-center gap-5 rounded-3xl px-6 py-10 text-center sm:px-12">
+            <h2 className="text-balance text-2xl font-bold tracking-tight sm:text-3xl">
+              Давайте разберём ваши цифры
+            </h2>
+            <p className="max-w-2xl text-pretty leading-relaxed text-muted-foreground">
+              На первой встрече посмотрим, как сейчас устроены финансы бизнеса, где не хватает
+              прозрачности и что действительно имеет смысл изменить или автоматизировать.
+            </p>
+            <a
+              href={TELEGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl bg-[image:var(--gradient-emerald)] px-6 py-4 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-transform duration-200 hover:scale-[1.02]"
+            >
+              <Send className="h-4 w-4" />
+              Обсудить задачу в Telegram
+            </a>
+            <p className="text-xs text-muted-foreground">Без обязательств продолжать работу.</p>
           </div>
         </Reveal>
       </div>
@@ -483,11 +510,13 @@ function Landing() {
       <main>
         <Hero />
         <Services />
-        <Calculator />
+        <Diagnostic />
         <BeforeAfter />
         <Expertise />
+        <Approach />
         <Privacy />
         <LeadMagnet />
+        <FinalCta />
       </main>
       <Footer />
     </div>
