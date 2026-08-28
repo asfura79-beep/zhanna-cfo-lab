@@ -1,31 +1,40 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import {
-  AlertTriangle,
-  CheckCircle2,
-  FileSpreadsheet,
-  Keyboard,
-  MessagesSquare,
-  Clock,
-  Landmark,
-  ScanLine,
-  Database,
-  LayoutDashboard,
-} from "lucide-react";
+import { Landmark, FileStack, FileBarChart, UserRound } from "lucide-react";
 import { Reveal, SectionTitle } from "./shared";
 
 const BEFORE = [
-  { icon: Keyboard, title: "Ручной ввод данных", text: "Каждая операция забивается руками — время уходит, ошибки копятся." },
-  { icon: FileSpreadsheet, title: "Ошибки в Excel", text: "Слетевшие формулы и разные версии файлов дают неверные цифры." },
-  { icon: MessagesSquare, title: "Разрозненные чаты", text: "Документы и договорённости теряются в переписках и почте." },
-  { icon: Clock, title: "Долгий сбор первички", text: "Закрытие месяца растягивается, решения принимаются вслепую." },
+  { icon: Landmark, title: "Банк", text: "Выписки скачиваются и разбираются вручную." },
+  {
+    icon: FileStack,
+    title: "Первичные документы",
+    text: "Документы приходится искать в почте, мессенджерах и разных папках.",
+  },
+  { icon: FileBarChart, title: "Отчёты", text: "Данные вручную собираются из нескольких источников." },
+  { icon: UserRound, title: "Собственник", text: "Получает ключевые цифры с задержкой." },
 ];
 
 const AFTER = [
-  { icon: Landmark, title: "Автозагрузка выписок", text: "Банковские операции подтягиваются автоматически и разносятся по статьям." },
-  { icon: ScanLine, title: "Распознавание документов", text: "Сервисы распознавания превращают первичку в готовые проводки." },
-  { icon: Database, title: "Интеграция баз данных", text: "Системы обмениваются данными — двойной ввод исключён." },
-  { icon: LayoutDashboard, title: "Сводные дашборды", text: "Все ключевые метрики в одном окне и всегда актуальны." },
+  {
+    icon: Landmark,
+    title: "Банк",
+    text: "Операции регулярно попадают в систему и распределяются по установленному процессу.",
+  },
+  {
+    icon: FileStack,
+    title: "Первичные документы",
+    text: "Документы собраны, систематизированы и контролируются.",
+  },
+  {
+    icon: FileBarChart,
+    title: "Отчёты",
+    text: "P&L и ОДДС формируются по единой структуре данных.",
+  },
+  {
+    icon: UserRound,
+    title: "Собственник",
+    text: "Видит ключевые показатели бизнеса в одном месте.",
+  },
 ];
 
 export function BeforeAfter() {
@@ -79,11 +88,11 @@ export function BeforeAfter() {
             {items.map((item, i) => (
               <motion.article
                 key={`${after}-${item.title}`}
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.35, delay: i * 0.06 }}
-                className="glass-card group rounded-2xl p-6 transition-shadow duration-300 hover:shadow-[var(--shadow-float)]"
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3, delay: i * 0.05 }}
+                className="glass-card rounded-2xl p-6 transition-shadow duration-300 hover:shadow-[var(--shadow-float)]"
               >
                 <div
                   className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${
@@ -94,14 +103,7 @@ export function BeforeAfter() {
                 >
                   <item.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-4 flex items-center gap-2 text-lg font-semibold">
-                  {after ? (
-                    <CheckCircle2 className="h-4 w-4 text-emerald-brand" />
-                  ) : (
-                    <AlertTriangle className="h-4 w-4 text-muted-foreground" />
-                  )}
-                  {item.title}
-                </h3>
+                <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
               </motion.article>
             ))}
