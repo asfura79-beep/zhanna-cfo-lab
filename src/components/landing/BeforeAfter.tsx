@@ -10,7 +10,11 @@ const BEFORE = [
     title: "Первичные документы",
     text: "Документы приходится искать в почте, мессенджерах и разных папках.",
   },
-  { icon: FileBarChart, title: "Отчёты", text: "Данные вручную собираются из нескольких источников." },
+  {
+    icon: FileBarChart,
+    title: "Отчёты",
+    text: "Данные вручную собираются из нескольких источников.",
+  },
   { icon: UserRound, title: "Собственник", text: "Получает ключевые цифры с задержкой." },
 ];
 
@@ -42,8 +46,8 @@ export function BeforeAfter() {
   const items = after ? AFTER : BEFORE;
 
   return (
-    <section id="tools" className="scroll-mt-24 py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl px-5">
+    <section id="automation" className="scroll-mt-24 bg-card py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-5">
         <SectionTitle
           eyebrow="Инструменты"
           title="Бизнес до и после автоматизации"
@@ -51,7 +55,7 @@ export function BeforeAfter() {
         />
 
         <Reveal className="mt-10 flex justify-center">
-          <div className="glass-card inline-flex rounded-full p-1.5">
+          <div className="inline-flex rounded-full border border-border/70 bg-secondary p-1.5 shadow-sm">
             {[
               { label: "До", value: false },
               { label: "После", value: true },
@@ -60,7 +64,7 @@ export function BeforeAfter() {
                 key={opt.label}
                 type="button"
                 onClick={() => setAfter(opt.value)}
-                className="relative rounded-full px-7 py-2.5 text-sm font-semibold transition-colors"
+                className="relative min-h-11 rounded-full px-7 py-2.5 text-sm font-semibold transition-colors"
               >
                 {after === opt.value && (
                   <motion.span
@@ -83,31 +87,54 @@ export function BeforeAfter() {
           </div>
         </Reveal>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2">
-          <AnimatePresence mode="popLayout">
-            {items.map((item, i) => (
-              <motion.article
-                key={`${after}-${item.title}`}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="glass-card rounded-2xl p-6 transition-shadow duration-300 hover:shadow-[var(--shadow-float)]"
-              >
-                <div
-                  className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${
-                    after
-                      ? "bg-[image:var(--gradient-emerald)] text-primary-foreground"
-                      : "bg-secondary text-muted-foreground"
-                  }`}
+        <div className={`automation-map mt-10 ${after ? "is-after" : "is-before"}`}>
+          <div className="automation-lane">
+            <AnimatePresence mode="popLayout">
+              {items.map((item, i) => (
+                <motion.article
+                  key={`${after}-${item.title}`}
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  className="automation-node"
                 >
-                  <item.icon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
-              </motion.article>
-            ))}
-          </AnimatePresence>
+                  <div className="flex items-start gap-4">
+                    <div className="automation-icon">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold">{item.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                        {item.text}
+                      </p>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </AnimatePresence>
+          </div>
+
+          <motion.div
+            key={after ? "system" : "fragmented"}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="automation-dashboard"
+          >
+            <span>{after ? "Единый контур" : "Разрозненные данные"}</span>
+            <b>{after ? "Контроль в одном месте" : "Картина собирается вручную"}</b>
+            <div className="mt-5 grid gap-3">
+              {(after ? ["Деньги", "Прибыль", "Платежи"] : ["Банк", "Таблицы", "Почта"]).map(
+                (item, i) => (
+                  <div key={item} className="automation-metric">
+                    <p>{item}</p>
+                    <i style={{ width: after ? `${86 - i * 12}%` : `${42 + i * 10}%` }} />
+                  </div>
+                ),
+              )}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

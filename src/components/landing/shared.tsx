@@ -1,7 +1,7 @@
 import { motion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
 
-export const TELEGRAM_URL = "https://t.me/";
+export const TELEGRAM_URL = "https://t.me/Zhanna_CA";
 
 const variants: Variants = {
   hidden: { opacity: 0, y: 28 },
